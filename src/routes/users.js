@@ -15,10 +15,24 @@ import {
   loginUser,
   logoutUser,
 } from "../controllers/auth/authController.js";
+import {
+  signUpBusiness,
+  loginBusiness,
+  logoutBusiness,
+} from "../controllers/auth/authBusinessController.js";
+import {
+  deleteBusiness,
+  fetchAllBusinesses,
+  findBusinessById,
+  findBusinessByName,
+  updateBusiness,
+  updateBusinessPost,
+} from "../controllers/business/businessController.js";
 
 const Router = express.Router();
 
 Router.get("/", defaultController)
+  //for users
   .post("/signup", signUpUser)
   .get("/users", authRequired, fetchAllUsers)
   .post("/login", loginUser)
@@ -27,6 +41,16 @@ Router.get("/", defaultController)
   .delete("/delete/:id", deleteUser)
   .put("/updated/:userName", updateUser)
   .get("/users/:id", findUserById)
-  .get("/users/currentUser/:userName", authRequired, findUserByName);
+  .get("/users/currentUser/:userName", authRequired, findUserByName)
+  //for business
+  .post("/signup/business", signUpBusiness)
+  .get("/businesses", authRequired, fetchAllBusinesses)
+  .post("/login/business", loginBusiness)
+  .post("/users/post/business/:id", updateBusinessPost)
+  .get("/logout/business", logoutBusiness)
+  .delete("/delete/business/:id", deleteBusiness)
+  .put("/updated/business/:userName", updateBusiness)
+  .get("/users/business/:id", findBusinessById)
+  .get("/users/currentBusiness/:userName", authRequired, findBusinessByName);
 
 export default Router;

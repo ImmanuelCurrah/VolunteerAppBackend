@@ -26,6 +26,6 @@ const businessSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Business = mongoose.model("users", userSchema);
+const Business = mongoose.model("businesses", businessSchema);
 
 export default Business;

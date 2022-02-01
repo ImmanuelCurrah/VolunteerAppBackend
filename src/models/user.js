@@ -21,7 +21,6 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, trim: true },
     password: { type: String, required: true, trim: true },
     confirmPassword: { type: String, required: true, trim: true },
-    isBusiness: false,
     posts: [postSchema],
   },
   { timestamps: true }
