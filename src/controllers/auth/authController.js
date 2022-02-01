@@ -54,9 +54,13 @@ export const signUpUser = async (req, res) => {
       newUser.password = await securePassword(newUser.password);
       newUser.confirmPassword = newUser.password;
 
-      res.json(errorHandler(false, `Hello ${newUser.firstName}`), {
-        user: newUser._id,
-      });
+      res.json(
+        errorHandler(
+          false,
+          `Hi ${newUser.firstName.toUpperCase()}! A warm welcome to my User API!`,
+          { user: newUser._id }
+        )
+      );
       await newUser.save();
     } else {
       return res.json(errorHandler(true, "error registering user"));
@@ -69,7 +73,9 @@ export const signUpUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const user = await User.findOne(
-      { email: req.body.email.toLowerCase() },
+      {
+        email: req.body.email.toLowerCase(),
+      },
       { confirmPassword: 0 }
     );
 
@@ -83,11 +89,16 @@ export const loginUser = async (req, res) => {
       return res.json(errorHandler(true, "password was incorrect"));
     }
 
+    const { userName } = user;
+    const token = createToken(user._id);
+
+    res.cookie("jwt", token, { httpOnly: true, maxAge: 84000 });
+
     res.json(
       errorHandler(false, `Welcome back ${userName}`, { user, token }, token)
     );
   } catch (error) {
-    errorHandler(true, "trouble logging in user");
+    return res.json(errorHandler(true, "trouble logging in user"));
   }
 };
 
