@@ -3,9 +3,7 @@ import mongoose from "mongoose";
 
 const db = mongoose.connect;
 
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://ImmanuelCurrah:Vr4L569IyN8G469K@cluster0.ugdor.mongodb.net/volunteers?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 export const initMongoServer = () => {
   try {
