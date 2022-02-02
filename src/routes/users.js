@@ -28,6 +28,8 @@ import {
   updateBusiness,
   updateBusinessPost,
 } from "../controllers/business/businessController.js";
+import { writeMessage } from "../controllers/message/createMessage.js";
+import { fetchAllMessages } from "../controllers/message/messageControllers.js";
 
 const Router = express.Router();
 
@@ -51,6 +53,8 @@ Router.get("/", defaultController)
   .delete("/delete/business/:id", deleteBusiness)
   .put("/updated/business/:userName", updateBusiness)
   .get("/users/business/:id", findBusinessById)
-  .get("/users/currentBusiness/:userName", authRequired, findBusinessByName);
-
+  .get("/users/currentBusiness/:userName", authRequired, findBusinessByName)
+  //messages from the contact us from on frontend
+  .post("/messages/create", writeMessage)
+  .get("/messages", fetchAllMessages);
 export default Router;
