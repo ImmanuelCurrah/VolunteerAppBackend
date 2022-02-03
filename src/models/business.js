@@ -9,7 +9,7 @@ const commentSchema = mongoose.Schema({
 const postSchema = mongoose.Schema({
   event: { type: String, required: true, trim: true },
   content: { type: String, required: true, trim: true },
-  numberNeeded: { type: Number, required: true, trim: true },
+  numberNeeded: { type: String, required: true, trim: true },
   Comments: [commentSchema],
 });
 
