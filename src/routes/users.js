@@ -9,7 +9,7 @@ import {
   findUserByName,
   updateUser,
   updateUserPost,
-} from "../controllers/user/userController.js";
+} from "../db/user/userController.js";
 import {
   signUpUser,
   loginUser,
@@ -53,7 +53,7 @@ Router.get("/", defaultController)
   .delete("/delete/business/:id", deleteBusiness)
   .put("/updated/business/:userName", updateBusiness)
   .get("/users/business/:id", findBusinessById)
-  .get("/users/currentBusiness/:userName", authRequired, findBusinessByName)
+  .get("/users/currentBusiness/:businessName", authRequired, findBusinessByName)
   //messages from the contact us from on frontend
   .post("/messages/create", writeMessage)
   .get("/messages", fetchAllMessages);
