@@ -35,7 +35,7 @@ import { fetchAllMessages } from "../controllers/message/messageControllers.js";
 const Router = express.Router();
 
 Router.get("/", defaultController)
-  //for users
+  //for users only
   .post("/signup", signUpUser)
   .get("/users", authRequired, fetchAllUsers)
   .post("/login", loginUser)
