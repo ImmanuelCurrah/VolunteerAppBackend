@@ -29,6 +29,7 @@ import {
   updateBusinessPost,
   postComment,
   getComments,
+  deleteBusinessPost,
 } from "../controllers/business/businessController.js";
 import { writeMessage } from "../controllers/message/createMessage.js";
 import { fetchAllMessages } from "../controllers/message/messageControllers.js";
@@ -61,6 +62,7 @@ Router.get("/", defaultController)
   .get("/messages", fetchAllMessages)
   //comments
   .post("/post/:id/:postId", authRequired, postComment)
-  .get("/post/:id/:postId", authRequired, getComments);
+  .get("/post/:id/:postId", authRequired, getComments)
+  .put("/business/delete/post/:id/:postId", deleteBusinessPost);
 
 export default Router;

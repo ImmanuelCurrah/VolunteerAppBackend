@@ -164,3 +164,31 @@ export const postComment = (req, res) => {
     errorHandler(true, "could not post");
   }
 };
+
+export const deleteBusinessPost = (req, res) => {
+  try {
+    const post = Business.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        posts: {
+          $elemMatch: { _id: mongoose.Types.ObjectId(req.params.postId) },
+        },
+      },
+      { $pull: { posts: { _id: mongoose.Types.ObjectId(req.params.postId) } } },
+      { new: true, upsert: true },
+      (error, post) => {
+        if (error) {
+          errorHandler(true, "could not delete");
+        } else {
+          res.json(errorHandler(false, "deleted", post));
+        }
+      }
+    );
+
+    if (!post) {
+      return res.status(400).send("Post not found");
+    }
+  } catch (error) {
+    errorHandler(true, "delete post failed");
+  }
+};
