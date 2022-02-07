@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Business from "../../models/business.js";
 import errorHandler from "../../utils/error.js";
 
@@ -120,6 +121,27 @@ export const updateBusinessPost = (req, res) => {
       business.save((error) => {
         return res.json(errorHandler(false, "posted", business));
       });
+    });
+  } catch (error) {
+    errorHandler(true, "could not post");
+  }
+};
+
+export const postComment = (req, res) => {
+  try {
+    Business.findById(req.params.id, (error, business) => {
+      if (error) {
+        throw new Error(error);
+      }
+      const posts = business.posts;
+      const post = posts.filter(
+        (post) => post._id.toString() === req.params.postId
+      )[0];
+      post.Comments.push(req.body);
+      business.save((error) => {
+        return res.json(errorHandler(false, "posted", post));
+      });
+      // res.json(errorHandler(false, "found it", post));
     });
   } catch (error) {
     errorHandler(true, "could not post");
