@@ -127,6 +127,23 @@ export const updateBusinessPost = (req, res) => {
   }
 };
 
+export const getComments = (req, res) => {
+  try {
+    Business.findById(req.params.id, (error, business) => {
+      if (error) {
+        throw new Error(error);
+      }
+      const posts = business.posts;
+      const post = posts.filter(
+        (post) => post._id.toString() === req.params.postId
+      )[0];
+      return res.json(errorHandler(false, "found it", post));
+    });
+  } catch (error) {
+    errorHandler(true, "could not find those comments");
+  }
+};
+
 export const postComment = (req, res) => {
   try {
     Business.findById(req.params.id, (error, business) => {
