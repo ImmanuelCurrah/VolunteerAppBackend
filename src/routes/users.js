@@ -27,6 +27,7 @@ import {
   findBusinessByName,
   updateBusiness,
   updateBusinessPost,
+  postComment,
 } from "../controllers/business/businessController.js";
 import { writeMessage } from "../controllers/message/createMessage.js";
 import { fetchAllMessages } from "../controllers/message/messageControllers.js";
@@ -56,5 +57,8 @@ Router.get("/", defaultController)
   .get("/users/currentBusiness/:businessName", authRequired, findBusinessByName)
   //messages from the contact us from on frontend
   .post("/messages/create", writeMessage)
-  .get("/messages", fetchAllMessages);
+  .get("/messages", fetchAllMessages)
+  //post
+  .post("/post/:id/:postId", postComment);
+
 export default Router;
